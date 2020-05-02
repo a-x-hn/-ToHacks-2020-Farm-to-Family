@@ -3,10 +3,10 @@ import React from "react";
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    // Don't call this.setState() here!
     this.state = { inputValue: "" };
   }
 
+  //updates inputValue when text is inputted into keyboard
   searchChange = (event) => {
     console.log("change", event.target.value);
     this.setState({
@@ -16,6 +16,7 @@ class SearchBar extends React.Component {
 
   render() {
     return (
+      //searchbar component
       <div className="ui category search">
         <div className="ui icon input">
           <input

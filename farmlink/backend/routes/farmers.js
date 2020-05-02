@@ -1,41 +1,41 @@
 const router = require('express').Router();
-let User = require('../models/user.model');
+let Farmer = require('../models/farmer.model');
 
 router.route('/').get((req, res) => {
-    User.find()
-        .then(user => res.json(users))
+    Farmer.find()
+        .then(farmer => res.json(farmer))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req, res) => {
     const username = req.body.username;
 
-    const newUser = new User({username});
+    const newFarmer = new Farmer({username});
 
-    newUser.save()
-    .then(() => res.json('User added!'))
+    newFarmer.save()
+    .then(() => res.json('Farmer added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').get((req, res) => {
-    User.findById(req.user.id)
-    .then(param => res.json(user))
+    Farmer.findById(req.user.id)
+    .then(farmer => res.json(farmer))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').delete((req, res) => {
-    User.findByIdAndDelete(req.user.id)
-    .then(() => res.json('User deleted.'))
+    Farmer.findByIdAndDelete(req.farmer.id)
+    .then(() => res.json('Farmer deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/update/:id').post((req, res) => {
-    User.findById(req.user.id)
-    .then(user => {
-      user.username = req.body.username;
+    Farmer.findById(req.user.id)
+    .then(farmer => {
+      farmer.username = req.body.username;
 
-      user.save()
-        .then(() => res.json('User updated!'))
+      farmer.save()
+        .then(() => res.json('Farmer updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));

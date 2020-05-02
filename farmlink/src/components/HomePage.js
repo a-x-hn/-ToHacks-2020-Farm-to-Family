@@ -8,7 +8,6 @@ class HomePage extends React.Component {
       <div>
         HomePage
         <div>test</div>
-        <Link to="/Login">Login</Link>
         <SearchBar />
       </div>
     );

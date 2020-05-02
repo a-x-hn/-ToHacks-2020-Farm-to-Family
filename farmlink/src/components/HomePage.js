@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 class HomePage extends React.Component {
   render() {
@@ -7,7 +8,7 @@ class HomePage extends React.Component {
       <div>
         HomePage
         <div>test</div>
-        <Link to="/loginclient">Client Login</Link>
+        <SearchBar />
       </div>
     );
   }

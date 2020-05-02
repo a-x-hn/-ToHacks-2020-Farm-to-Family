@@ -19,8 +19,10 @@ connection.once('open', () => {
 })
 
 const farmerRouter = require('./routes/farmers');
+const clientRouter = require('./routes/clients');
 
 app.use('/farmer', farmerRouter);
+app.use('/client', clientRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

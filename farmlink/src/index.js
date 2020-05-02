@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import HomePage from "./components/HomePage";
-import Login from "./components/Login";
+import loginclient from "./components/loginclient";
 
 class App extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Route path="/" exact component={HomePage} />
-            <Route path="/login" exact component={Login} />
+            <Route path="/loginclient" exact component={loginclient} />
           </div>
         </BrowserRouter>
       </div>

@@ -1,5 +1,16 @@
 const router = require('express').Router();
-let Client = require('../models/client.model');
+const router = require('express').Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+
+// Load Input Validation
+
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
+
+// Load User model
+const Client = require('../models/client.model');
 
 router.route('/').get((req, res) => {
     Client.find()

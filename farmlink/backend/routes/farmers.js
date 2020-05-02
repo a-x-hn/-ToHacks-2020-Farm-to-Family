@@ -1,5 +1,43 @@
 const router = require('express').Router();
-let Farmer = require('../models/farmer.model');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+
+// Load Input Validation
+
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
+
+// Load User model
+const Farmer = require('../models/farmer.model');
+
+router.post("/registerfarmer", (req, res) => {
+    // Form validation
+        const { errors, isValid } = validateRegisterInput(req.body);
+    // Check validation
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
+
+    Farmer.findOne({ email: req.body.email }).then(farmer => {
+        if (farmer) {
+            return res.status(400).json({ email: "Email already exists" });
+        } else {
+            const newFarmer = new Farmer({
+                username: req.body.username,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                middlename: req.body.middlename,
+                email: req.body.email,
+                password: req.body.password,
+                phoneNumber: req.body.phoneNumber,
+                address: req.body.address
+            })
+        }
+    })
+
+    // Hash password before saving in db
+});
 
 router.route('/').get((req, res) => {
     Farmer.find()

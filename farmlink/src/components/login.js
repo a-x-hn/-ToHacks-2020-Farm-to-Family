@@ -15,12 +15,12 @@ class Login extends React.Component {
 }
 
 export default Login;
+
 */
+const Validator = require('validator');
+const isEmpty = require('is-empty');
 
-const Validator = require("validator");
-const isEmpty = require("is-empty");
-
-module.exports = function validateRegisterInput(data) {
+module.exports = function validateLoginInput(data) {
   let errors = {};
 
   // Convert empty fields to an empty string

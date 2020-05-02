@@ -1,25 +1,26 @@
 const router = require('express').Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+const keys = require('../src/config/keys');
 
 // Load Input Validation
 
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
+const validateRegisterInput = require("../register");
+const validateLoginInput = require("../login");
 
 // Load User model
 const Farmer = require('../models/farmer.model');
 
-router.route('/registerfarmer').post((req, res) => {
+router.route('/register').post((req, res) => {
     // Form validation
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
     if (!isValid) {
       return res.status(400).json(errors);
     }
+
     Farmer.findOne({ email: req.body.email }).then(Farmer => {
-      if (user) {
+      if (Farmer) {
         return res.status(400).json({ email: "Email already exists" });
       } else {
         const newFarmer = new Farmer({
@@ -49,7 +50,7 @@ router.route('/registerfarmer').post((req, res) => {
 
 router.route('/').get((req, res) => {
     Farmer.find()
-        .then(farmer => res.json(farmer))
+        .then(Farmer => res.json(Farmer))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

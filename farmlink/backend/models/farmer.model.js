@@ -42,6 +42,6 @@ const farmerSchema = new Schema({
     timestamps: true,
 });
 
-const Farmer = mongoose.model('Farmer', farmerSchema);
+const Farmer = mongoose.model('farmer', farmerSchema);
 
 module.exports = Farmer;

@@ -23,6 +23,8 @@
     "mongoose-intl-phone-number": "^1.1.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "react-native": "^0.62.2",
+    "validate.js": "^0.13.1",
     "validator": "^13.0.0"
   }
 }

@@ -3,16 +3,17 @@ import React from "react";
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { inputValue: "" };
   }
 
   //updates inputValue when text is inputted into keyboard
+  /*
   searchChange = (event) => {
     console.log("change", event.target.value);
     this.setState({
       inputValue: event.target.value,
     });
   };
+*/
 
   render() {
     return (
@@ -21,7 +22,7 @@ class SearchBar extends React.Component {
         <div className="ui icon input">
           <input
             className="prompt"
-            onChange={this.searchChange}
+            onChange={this.props.onChange}
             type="text"
             placeholder="Search Goods..."
           />

@@ -1,23 +1,26 @@
-import React from "react";
-class Navbar extends React.Component {
-    render() {
-      return (
-          <div class="ui secondary  menu">
-              <Link to="/">User-landingpage</Link>
-              <a class="item">
-                  Farmlink
-              </a>
-              <div class="right menu">
-                  <a class="item">
-                      Current Order
-                  </a>
-                  <a class="item active">
-                      Your account
-                  </a>
-              </div>
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
+class Navbar extends Component {
+  render() {
+    return (
+      <div className="navbar-fixed">
+        <nav className="z-depth-0">
+          <div className="nav-wrapper white">
+            <Link
+              to="/"
+              style={{
+                fontFamily: "monospace"
+              }}
+              className="col s5 brand-logo center black-text"
+            >
+              <i className="material-icons">code</i>
+              MERN
+            </Link>
           </div>
-      );
-    }
+        </nav>
+      </div>
+    );
   }
-  
-  export default Navbar;
+}
+export default Navbar;

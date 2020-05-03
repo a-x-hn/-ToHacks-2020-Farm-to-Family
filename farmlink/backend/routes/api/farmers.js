@@ -1,17 +1,72 @@
 const router = require('express').Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require('../src/config/keys');
+const keys = require('../../config/keys');
 
 // Load Input Validation
 
-const validateRegisterInput = require("../register");
-const validateLoginInput = require("../login");
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const Farmer = require('../models/farmer.model');
+const Farmer = require('../../models/farmer.model');
 
-router.route('/register').post((req, res) => {
+// Log In Route
+
+router.post("/login", (req, res) => {
+
+  // Form Validation
+  const { errors,isValid } = validateLoginInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find Farmer by Email
+
+  Farmer.findOne({ email }).then(farmer => {
+    if (!farmer) {
+      return res.status(404).json({ emailnotfound: "Email not found"});
+    }
+
+    // Check Password
+    bcrypt.compare(password, farmer.password).then(isMatch => {
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+
+        // Sign Token
+        jwt.sign(
+          payload,
+          keys.secretorKey,
+          {
+            expiresIn: 31556926,
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
+
+// Register Route
+
+router.post('/register', (req, res) => {
     // Form validation
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
@@ -19,8 +74,8 @@ router.route('/register').post((req, res) => {
       return res.status(400).json(errors);
     }
 
-    Farmer.findOne({ email: req.body.email }).then(Farmer => {
-      if (Farmer) {
+    Farmer.findOne({ email: req.body.email }).then(farmer => {
+      if (farmer) {
         return res.status(400).json({ email: "Email already exists" });
       } else {
         const newFarmer = new Farmer({
@@ -40,7 +95,7 @@ router.route('/register').post((req, res) => {
             newFarmer.password = hash;
             newFarmer
               .save()
-              .then(Farmer => res.json(Farmer))
+              .then(farmer => res.json(farmer))
               .catch(err => console.log(err));
           });
         });
@@ -48,6 +103,7 @@ router.route('/register').post((req, res) => {
     });
   });
 
+/*
 router.route('/').get((req, res) => {
     Farmer.find()
         .then(Farmer => res.json(Farmer))
@@ -87,5 +143,7 @@ router.route('/update/:id').post((req, res) => {
     })
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
+*/
 
 module.exports = router;

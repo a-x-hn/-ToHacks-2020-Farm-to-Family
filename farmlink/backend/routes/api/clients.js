@@ -5,11 +5,11 @@ const keys = require("../../config/keys");
 
 // Load Input Validation
 
-const validateRegisterInput = require("../register");
-const validateLoginInput = require("../login");
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const Client = require('../models/client.model');
+const Client = require('../../models/client.model');
 
 router.route('/').get((req, res) => {
     Client.find()
